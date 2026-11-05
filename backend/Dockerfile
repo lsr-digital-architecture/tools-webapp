@@ -8,6 +8,8 @@ WORKDIR /app
 
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY backend/package.json ./backend/
+COPY backend/prisma ./backend/prisma
+COPY backend/prisma.config.ts ./backend/prisma.config.ts
 
 RUN pnpm install --frozen-lockfile --filter url-shortener-backend...
 
@@ -28,14 +30,12 @@ ENV PORT=8080
 
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 COPY backend/package.json ./backend/
-
-# Install runtime deps + prisma CLI (needed for db push / generate on boot)
-RUN pnpm install --frozen-lockfile --filter url-shortener-backend... \
-  && pnpm --filter url-shortener-backend exec prisma generate
-
-COPY --from=build /app/backend/dist ./backend/dist
 COPY backend/prisma ./backend/prisma
 COPY backend/prisma.config.ts ./backend/prisma.config.ts
+
+RUN pnpm install --frozen-lockfile --filter url-shortener-backend...
+
+COPY --from=build /app/backend/dist ./backend/dist
 
 WORKDIR /app/backend
 

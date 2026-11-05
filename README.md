@@ -9,8 +9,8 @@ The project strictly follows architectural best practices, ensuring that the cor
 1. **Domain Layer**: Contains Entities (`ShortLink`) and Value Objects (`OriginalUrl`, `UrlCode`, `ExpirationDate`) to guarantee valid states.
 2. **Application Layer**: Contains Use Cases (`ShortenUrlUseCase`, `GetOriginalUrlUseCase`, `GetHistoryUseCase`).
 3. **Presentation Layer**:
-   - *Backend*: Pure JSON REST API Express Controllers (No SSR HTML).
-   - *Frontend*: React Components structured using **Atomic Design** (Atoms, Molecules, Organisms, Templates, Pages).
+   - _Backend_: Pure JSON REST API Express Controllers (No SSR HTML).
+   - _Frontend_: React Components structured using **Atomic Design** (Atoms, Molecules, Organisms, Templates, Pages).
 4. **Infrastructure Layer**: Prisma/SQLite Adapters (Backend) / HTTP Fetch & LocalStorage Adapters (Frontend).
 5. **Strict Functional Programming**: Zero mutability (no `let` variables, pure functions only) and flat logic (no nested `if` statements).
 
@@ -78,15 +78,15 @@ pnpm dev
 
 ## Scripts (root)
 
-| Script | Description |
-|--------|-------------|
-| `pnpm dev` | Start FE + BE in parallel |
-| `pnpm build` | Build all packages |
-| `pnpm typecheck` | TypeScript check (FE + BE) |
-| `pnpm lint` | oxlint (FE + BE) |
-| `pnpm format` | Format with oxfmt |
-| `pnpm format:check` | Check formatting |
-| `pnpm test` | Run unit tests (FE + BE) |
+| Script              | Description                |
+| ------------------- | -------------------------- |
+| `pnpm dev`          | Start FE + BE in parallel  |
+| `pnpm build`        | Build all packages         |
+| `pnpm typecheck`    | TypeScript check (FE + BE) |
+| `pnpm lint`         | oxlint (FE + BE)           |
+| `pnpm format`       | Format with oxfmt          |
+| `pnpm format:check` | Check formatting           |
+| `pnpm test`         | Run unit tests (FE + BE)   |
 
 ## Testing
 
@@ -119,10 +119,10 @@ pnpm format
 
 Apex : **`lsr-digital-architecture.com`** (même projet GCP/Firebase que marketing : `lsr-digital-architecture`).
 
-| Subdomain | Cible | Service |
-|-----------|-------|---------|
+| Subdomain                            | Cible                                    | Service  |
+| ------------------------------------ | ---------------------------------------- | -------- |
 | `tools.lsr-digital-architecture.com` | Firebase Hosting site `lsr-tools-webapp` | frontend |
-| `api.lsr-digital-architecture.com` | Cloud Run `tools-api` (`europe-west1`) | backend |
+| `api.lsr-digital-architecture.com`   | Cloud Run `tools-api` (`europe-west1`)   | backend  |
 
 WIF / SA (partagés avec marketing) :
 
@@ -151,13 +151,13 @@ Workflow : `.github/workflows/deploy-backend.yml`
 
 ### GitHub Secrets & Variables
 
-| Name | Type | Used by | Description |
-|------|------|---------|-------------|
-| `VITE_API_KEY` | Secret | frontend CI | Même valeur que `API_KEY` backend (header `x-api-key`) |
-| `DATABASE_URL` | Secret | Cloud Run deploy | Ex. `file:/tmp/tools.db` |
-| `API_KEY` | Secret | Cloud Run deploy | Clé API runtime |
-| `VITE_API_URL` | Variable (opt.) | frontend CI | Défaut : `https://api.lsr-digital-architecture.com` |
-| `CORS_ORIGINS` | Variable (opt.) | Cloud Run | Défaut : `https://tools.lsr-digital-architecture.com` |
+| Name           | Type            | Used by          | Description                                            |
+| -------------- | --------------- | ---------------- | ------------------------------------------------------ |
+| `VITE_API_KEY` | Secret          | frontend CI      | Même valeur que `API_KEY` backend (header `x-api-key`) |
+| `DATABASE_URL` | Secret          | Cloud Run deploy | Ex. `file:/tmp/tools.db`                               |
+| `API_KEY`      | Secret          | Cloud Run deploy | Clé API runtime                                        |
+| `VITE_API_URL` | Variable (opt.) | frontend CI      | Défaut : `https://api.lsr-digital-architecture.com`    |
+| `CORS_ORIGINS` | Variable (opt.) | Cloud Run        | Défaut : `https://tools.lsr-digital-architecture.com`  |
 
 Auth GCP : WIF (pas de clé JSON).
 

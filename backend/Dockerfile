@@ -42,4 +42,4 @@ WORKDIR /app/backend
 EXPOSE 8080
 
 # SQLite file path comes from DATABASE_URL (ephemeral on Cloud Run unless a volume is attached)
-CMD ["sh", "-c", "pnpm exec prisma db push --skip-generate && node dist/index.js"]
+CMD ["sh", "-c", "pnpm exec prisma db push --accept-data-loss && node dist/index.js"]

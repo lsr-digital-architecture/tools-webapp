@@ -2,7 +2,7 @@ import React from 'react';
 import { MainLayout } from '@/presentation/components/templates/MainLayout';
 import { ShortenerForm } from '@/presentation/components/organisms/ShortenerForm';
 import { HistoryList } from '@/presentation/components/organisms/HistoryList';
-import { useTranslation } from '@/presentation/i18n/LanguageContext';
+import { useTranslation } from '@/presentation/i18n/useTranslation';
 import { useShortener } from '@/presentation/hooks/use-shortener';
 import type { ShortenUrlUseCase } from '@/application/use-cases/shorten-url.use-case';
 import type { GetHistoryUseCase } from '@/application/use-cases/get-history.use-case';

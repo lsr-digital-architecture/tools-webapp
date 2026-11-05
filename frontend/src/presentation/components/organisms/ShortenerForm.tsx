@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { ShortLink } from '@/domain/entities/short-link.entity';
-import { useTranslation } from '@/presentation/i18n/LanguageContext';
+import { useTranslation } from '@/presentation/i18n/useTranslation';
 import { FormGroup } from '@/presentation/components/molecules/FormGroup';
 import { ResultCard } from '@/presentation/components/molecules/ResultCard';
 import { Button } from '@/presentation/components/atoms/Button';

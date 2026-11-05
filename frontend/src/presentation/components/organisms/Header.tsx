@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from '@/presentation/i18n/LanguageContext';
+import { useTranslation } from '@/presentation/i18n/useTranslation';
 import { LanguageSwitcher } from '@/presentation/components/molecules/LanguageSwitcher';
 
 export const Header: React.FC = () => {

@@ -11,6 +11,7 @@
     "lint": "pnpm -r run lint",
     "format": "pnpm -r run format",
     "format:check": "pnpm -r run format:check",
+    "check:all": "pnpm typecheck && pnpm lint && pnpm format:check",
     "test": "pnpm -r run test"
   }
 }

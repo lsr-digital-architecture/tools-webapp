@@ -7,4 +7,4 @@
   - Add dev dependency: `pnpm add -D <pkg> --filter <package>`
   - Run both apps: `pnpm dev`
   - Run build: `pnpm build`
-  - Run checks: `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `pnpm test`
+  - Run checks: `pnpm check:all` (or individually: `pnpm typecheck`, `pnpm lint`, `pnpm format:check`), `pnpm test`

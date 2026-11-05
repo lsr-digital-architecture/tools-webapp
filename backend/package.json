@@ -15,7 +15,8 @@
     "lint": "oxlint -c .oxlintrc.json",
     "lint:fix": "oxlint -c .oxlintrc.json --fix",
     "format": "oxfmt src",
-    "format:check": "oxfmt --check src"
+    "format:check": "oxfmt --check src",
+    "check:all": "pnpm typecheck && pnpm lint && pnpm format:check"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.8.0",

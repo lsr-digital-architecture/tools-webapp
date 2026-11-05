@@ -1,13 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import React, { useState, useEffect, type ReactNode } from 'react';
+import { LanguageContext } from '@/presentation/i18n/languageContextInstance';
 import { translations, type Language } from '@/presentation/i18n/translations';
-
-interface LanguageContextProps {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: typeof translations.en;
-}
-
-const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
 const getInitialLanguage = (): Language => {
   const rawLang = localStorage.getItem('volta-lang');
@@ -44,12 +37,4 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       {children}
     </LanguageContext.Provider>
   );
-};
-
-export const useTranslation = () => {
-  const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useTranslation must be used within a LanguageProvider');
-  }
-  return context;
 };

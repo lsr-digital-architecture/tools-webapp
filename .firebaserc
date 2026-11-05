@@ -6,7 +6,7 @@
     "lsr-digital-architecture": {
       "hosting": {
         "tools": [
-          "tools"
+          "lsr-tools-webapp"
         ]
       }
     }

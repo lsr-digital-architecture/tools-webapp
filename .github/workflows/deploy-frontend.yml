@@ -52,7 +52,7 @@ jobs:
         run: pnpm build
         env:
           # Override via repo variable VITE_API_URL if needed; default is api subdomain
-          VITE_API_URL: ${{ vars.VITE_API_URL || 'https://api.loghan-ramassamy.fr' }}
+          VITE_API_URL: ${{ vars.VITE_API_URL || 'https://api.lsr-digital-architecture.com' }}
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - name: Authenticate to Google Cloud via Workload Identity Federation

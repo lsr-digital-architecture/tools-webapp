@@ -117,12 +117,12 @@ pnpm format
 
 ## Déploiement
 
-Apex : **`loghan-ramassamy.fr`** (même projet GCP/Firebase que marketing : `lsr-digital-architecture`).
+Apex : **`lsr-digital-architecture.com`** (même projet GCP/Firebase que marketing : `lsr-digital-architecture`).
 
 | Subdomain | Cible | Service |
 |-----------|-------|---------|
-| `tools.loghan-ramassamy.fr` | Firebase Hosting site `tools` | frontend |
-| `api.loghan-ramassamy.fr` | Cloud Run `tools-api` (`europe-west1`) | backend |
+| `tools.lsr-digital-architecture.com` | Firebase Hosting site `lsr-tools-webapp` | frontend |
+| `api.lsr-digital-architecture.com` | Cloud Run `tools-api` (`europe-west1`) | backend |
 
 WIF / SA (partagés avec marketing) :
 
@@ -133,9 +133,9 @@ WIF / SA (partagés avec marketing) :
 
 Workflow : `.github/workflows/deploy-frontend.yml`
 
-- PR → preview channel sur le site `tools`
+- PR → preview channel sur le site `lsr-tools-webapp` (target `tools`)
 - Push `main` → live `hosting:tools`
-- Build injecte `VITE_API_URL` (défaut CI : `https://api.loghan-ramassamy.fr`) et `VITE_API_KEY`
+- Build injecte `VITE_API_URL` (défaut CI : `https://api.lsr-digital-architecture.com`) et `VITE_API_KEY`
 
 ### Backend → Cloud Run
 
@@ -156,20 +156,20 @@ Workflow : `.github/workflows/deploy-backend.yml`
 | `VITE_API_KEY` | Secret | frontend CI | Même valeur que `API_KEY` backend (header `x-api-key`) |
 | `DATABASE_URL` | Secret | Cloud Run deploy | Ex. `file:/tmp/tools.db` |
 | `API_KEY` | Secret | Cloud Run deploy | Clé API runtime |
-| `VITE_API_URL` | Variable (opt.) | frontend CI | Défaut : `https://api.loghan-ramassamy.fr` |
-| `CORS_ORIGINS` | Variable (opt.) | Cloud Run | Défaut : `https://tools.loghan-ramassamy.fr` |
+| `VITE_API_URL` | Variable (opt.) | frontend CI | Défaut : `https://api.lsr-digital-architecture.com` |
+| `CORS_ORIGINS` | Variable (opt.) | Cloud Run | Défaut : `https://tools.lsr-digital-architecture.com` |
 
 Auth GCP : WIF (pas de clé JSON).
 
 ### Ops checklist (console / CLI)
 
 1. **Firebase sites** : `firebase hosting:sites:create tools --project lsr-digital-architecture`
-2. **Domaine Hosting** : attacher `tools.loghan-ramassamy.fr` au site `tools`
+2. **Domaine Hosting** : attacher `tools.lsr-digital-architecture.com` au site `lsr-tools-webapp`
 3. **Artifact Registry** : créer le repo Docker `cloud-run` en `europe-west1` si absent
 4. **IAM SA `github-deployer`** : roles Hosting Admin / Firebase, Artifact Registry Writer, Cloud Run Admin, Service Account User ; autoriser ce repo sur le WIF provider
 5. **Cloud Run custom domain `api`** :
-   - Console Cloud Run → Domain mappings → map `api.loghan-ramassamy.fr` → service `tools-api` (`europe-west1`)
-   - Ou : `gcloud beta run domain-mappings create --service tools-api --domain api.loghan-ramassamy.fr --region europe-west1`
+   - Console Cloud Run → Domain mappings → map `api.lsr-digital-architecture.com` → service `tools-api` (`europe-west1`)
+   - Ou : `gcloud beta run domain-mappings create --service tools-api --domain api.lsr-digital-architecture.com --region europe-west1`
    - Ajouter chez le registrar les records DNS indiqués (souvent CNAME / A/AAAA Google)
 6. Renseigner les secrets/variables GitHub ci-dessus
 7. Premier deploy : push `main` (ou `workflow_dispatch` sur deploy-backend)

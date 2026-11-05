@@ -110,7 +110,7 @@ jobs:
             echo "Missing required secrets: DATABASE_URL and/or API_KEY" >&2
             exit 1
           fi
-          CORS_VALUE="${CORS_ORIGINS:-https://tools.loghan-ramassamy.fr}"
+          CORS_VALUE="${CORS_ORIGINS:-https://tools.lsr-digital-architecture.com}"
           ENV_FILE="$(mktemp)"
           trap 'rm -f "${ENV_FILE}"' EXIT
           {

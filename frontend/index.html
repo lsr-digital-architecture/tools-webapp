@@ -8,11 +8,24 @@
       href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230D111A'/><text x='16' y='21' text-anchor='middle' font-family='monospace' font-size='10' font-weight='700' fill='%2338BDF8'>LSR</text></svg>"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('lsr_theme_preference');
+          var theme = saved === 'dark' || saved === 'light' ? saved : 'light';
+          document.documentElement.classList.remove('dark', 'light');
+          document.documentElement.classList.add(theme);
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
     <meta
       name="description"
       content="LSR Tools — raccourcisseur d'URL sécurisé de LSR Digital Architecture, conçu pour les workflows finance & fintech."
     />
     <meta name="author" content="LSR Digital Architecture SASU" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
     <title>LSR Tools | Raccourcisseur d'URL — LSR Digital Architecture</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

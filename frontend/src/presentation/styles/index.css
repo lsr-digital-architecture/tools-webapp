@@ -4,10 +4,20 @@
   --font-sans: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
+  /* Dark defaults (overridden by html.light) */
   --color-main-bg: #090a0f;
+  --color-surface: #0d111a;
+  --color-surface-elevated: #131926;
   --color-card-bg: rgba(13, 17, 26, 0.72);
   --color-card-border: rgba(255, 255, 255, 0.08);
   --color-card-hover: rgba(56, 189, 248, 0.35);
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+  --color-border-faint: rgba(255, 255, 255, 0.05);
+  --color-input-bg: rgba(0, 0, 0, 0.3);
+  --color-input-bg-focus: rgba(0, 0, 0, 0.5);
+  --color-overlay: rgba(255, 255, 255, 0.2);
+  --color-overlay-hover: rgba(255, 255, 255, 0.1);
+  --color-panel-shadow: rgba(0, 0, 0, 0.4);
 
   --color-brand: #2563eb;
   --color-brand-hover: #1d4ed8;
@@ -18,6 +28,8 @@
   --color-text-main: #f8fafc;
   --color-text-dim: #94a3b8;
   --color-text-muted: #64748b;
+  --color-text-inverse: #0f172a;
+  --color-gradient-start: #f8fafc;
 
   --color-success-text: #10b981;
   --color-success-bg: rgba(16, 185, 129, 0.1);
@@ -27,6 +39,7 @@
   --color-error-bg: rgba(239, 68, 68, 0.1);
   --color-error-border: rgba(239, 68, 68, 0.2);
   --color-error-glow: rgba(239, 68, 68, 0.2);
+  --color-error-fg: #fca5a5;
 
   --color-never-bg: rgba(255, 255, 255, 0.05);
   --color-never-border: rgba(255, 255, 255, 0.08);
@@ -34,6 +47,48 @@
   --animate-slide-in: slideIn 0.4s ease-out forwards;
   --animate-fade-in: fadeIn 0.3s ease-out forwards;
   --animate-toast-in: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+html.light,
+html[data-theme='light'] {
+  --color-main-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #f1f5f9;
+  --color-card-bg: rgba(255, 255, 255, 0.92);
+  --color-card-border: rgba(15, 23, 42, 0.1);
+  --color-card-hover: rgba(2, 132, 199, 0.35);
+  --color-border-subtle: rgba(15, 23, 42, 0.12);
+  --color-border-faint: rgba(15, 23, 42, 0.06);
+  --color-input-bg: rgba(15, 23, 42, 0.04);
+  --color-input-bg-focus: rgba(15, 23, 42, 0.06);
+  --color-overlay: rgba(15, 23, 42, 0.12);
+  --color-overlay-hover: rgba(15, 23, 42, 0.06);
+  --color-panel-shadow: rgba(15, 23, 42, 0.08);
+
+  --color-brand: #2563eb;
+  --color-brand-hover: #1d4ed8;
+  --color-brand-glow: rgba(37, 99, 235, 0.25);
+
+  --color-accent: #0284c7;
+
+  --color-text-main: #0f172a;
+  --color-text-dim: #475569;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #f8fafc;
+  --color-gradient-start: #0f172a;
+
+  --color-success-text: #059669;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-success-border: rgba(5, 150, 105, 0.25);
+
+  --color-error-text: #dc2626;
+  --color-error-bg: rgba(239, 68, 68, 0.1);
+  --color-error-border: rgba(220, 38, 38, 0.25);
+  --color-error-glow: rgba(239, 68, 68, 0.12);
+  --color-error-fg: #b91c1c;
+
+  --color-never-bg: rgba(15, 23, 42, 0.04);
+  --color-never-border: rgba(15, 23, 42, 0.1);
 }
 
 @keyframes slideIn {
@@ -72,8 +127,21 @@ body {
   background-image:
     radial-gradient(circle at top center, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
     radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
-    linear-gradient(180deg, #090a0f 0%, #0d111a 100%);
+    linear-gradient(180deg, var(--color-main-bg) 0%, var(--color-surface) 100%);
   padding: 40px 20px;
+  color-scheme: dark;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+html.light body,
+html[data-theme='light'] body {
+  background-image:
+    radial-gradient(circle at top center, rgba(37, 99, 235, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(2, 132, 199, 0.06) 0%, transparent 35%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+  color-scheme: light;
 }
 
 #root {
@@ -82,13 +150,15 @@ body {
 
 @layer components {
   .glass-panel {
-    @apply bg-card-bg backdrop-blur-[12px] border border-card-border rounded-[10px] p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] transition-all duration-300;
+    @apply bg-card-bg backdrop-blur-[12px] border border-card-border rounded-[10px] p-8 transition-all duration-300;
+    box-shadow: 0 8px 32px 0 var(--color-panel-shadow);
   }
   .glass-panel:hover {
-    @apply border-card-hover shadow-[0_12px_40px_0_rgba(56,189,248,0.08)];
+    @apply border-card-hover;
+    box-shadow: 0 12px 40px 0 color-mix(in srgb, var(--color-accent) 12%, transparent);
   }
 
   .text-gradient {
-    @apply bg-gradient-to-br from-[#F8FAFC] via-[#38BDF8] to-brand bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-gradient-start via-accent to-brand bg-clip-text text-transparent;
   }
 }

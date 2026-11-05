@@ -12,14 +12,16 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 }) => (
   <div className="flex gap-1.5">
     <button
+      type="button"
       onClick={() => onLanguageChange('en')}
-      className={`border-none text-white cursor-pointer px-2.5 py-1.5 rounded text-sm transition-colors ${currentLanguage === 'en' ? 'bg-white/20' : 'bg-transparent hover:bg-white/10'}`}
+      className={`border-none text-text-main cursor-pointer px-2.5 py-1.5 rounded text-sm transition-colors ${currentLanguage === 'en' ? 'bg-overlay' : 'bg-transparent hover:bg-overlay-hover'}`}
     >
       EN
     </button>
     <button
+      type="button"
       onClick={() => onLanguageChange('fr')}
-      className={`border-none text-white cursor-pointer px-2.5 py-1.5 rounded text-sm transition-colors ${currentLanguage === 'fr' ? 'bg-white/20' : 'bg-transparent hover:bg-white/10'}`}
+      className={`border-none text-text-main cursor-pointer px-2.5 py-1.5 rounded text-sm transition-colors ${currentLanguage === 'fr' ? 'bg-overlay' : 'bg-transparent hover:bg-overlay-hover'}`}
     >
       FR
     </button>

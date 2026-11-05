@@ -40,8 +40,8 @@ export const ShortenerForm: React.FC<ShortenerFormProps> = ({
   return (
     <div className="glass-panel">
       {error && (
-        <div className="bg-error-glow border border-error/20 text-red-300 px-4 py-3 rounded-xl text-[0.9rem] mb-5 flex items-center gap-2 animate-[fadeIn_0.3s_ease-out]">
-          <span>⚠️</span> {error === 'DEFAULT_GATEWAY_ERROR' ? t.errors.defaultGatewayError : error}
+        <div className="bg-error-glow border border-error-border text-error-fg px-4 py-3 rounded-xl text-[0.9rem] mb-5 flex items-center gap-2 animate-[fadeIn_0.3s_ease-out]">
+          {error === 'DEFAULT_GATEWAY_ERROR' ? t.errors.defaultGatewayError : error}
         </div>
       )}
 

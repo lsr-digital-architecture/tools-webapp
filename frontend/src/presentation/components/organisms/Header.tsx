@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from '@/presentation/i18n/useTranslation';
 import { LanguageSwitcher } from '@/presentation/components/molecules/LanguageSwitcher';
+import { ThemeToggle } from '@/presentation/components/atoms/ThemeToggle';
 
 const ECOSYSTEM_LINKS = [
   {
@@ -18,7 +19,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className="flex flex-col items-center my-5 relative gap-6">
-      <div className="absolute top-0 right-0 flex items-center gap-3">
+      <div className="absolute top-0 right-0 flex items-center gap-2 sm:gap-3">
         <nav className="hidden sm:flex items-center gap-1.5" aria-label="Écosystème LSR">
           {ECOSYSTEM_LINKS.map((link) => (
             <a
@@ -26,7 +27,7 @@ export const Header: React.FC = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-medium text-text-dim border border-white/10 hover:text-accent hover:border-accent/40 transition-colors"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs font-medium text-text-dim border border-border-subtle hover:text-accent hover:border-accent/40 transition-colors"
             >
               {t.nav[link.id]}
               <span className="opacity-60" aria-hidden="true">
@@ -35,10 +36,11 @@ export const Header: React.FC = () => {
             </a>
           ))}
         </nav>
+        <ThemeToggle />
         <LanguageSwitcher currentLanguage={language} onLanguageChange={setLanguage} />
       </div>
 
-      <div className="flex flex-col items-center pt-8 sm:pt-2">
+      <div className="flex flex-col items-center pt-10 sm:pt-2">
         <a
           href="https://lsr-digital-architecture.com/"
           target="_blank"
@@ -46,7 +48,7 @@ export const Header: React.FC = () => {
           className="inline-flex items-center gap-2 mb-5 group"
           aria-label={t.header.eyebrow}
         >
-          <div className="relative w-9 h-9 rounded-md bg-[#0D111A] border border-white/20 group-hover:border-accent transition-colors flex items-center justify-center overflow-hidden">
+          <div className="relative w-9 h-9 rounded-md bg-surface border border-border-subtle group-hover:border-accent transition-colors flex items-center justify-center overflow-hidden">
             <span className="relative font-mono font-bold text-xs text-accent">LSR</span>
             <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-accent" />
             <span className="absolute bottom-0 left-0 w-1.5 h-1.5 bg-brand" />

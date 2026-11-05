@@ -25,19 +25,19 @@ export const HistoryList: React.FC<HistoryListProps> = ({ history, copiedCode, o
         <table className="w-full border-collapse text-left">
           <thead>
             <tr>
-              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-white/5">
+              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-border-faint">
                 {t.history.originalUrl}
               </th>
-              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-white/5">
+              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-border-faint">
                 {t.history.shortCode}
               </th>
-              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-white/5">
+              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-border-faint">
                 {t.history.created}
               </th>
-              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-white/5">
+              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-border-faint">
                 {t.history.expiration}
               </th>
-              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-white/5">
+              <th className="px-4 py-3 text-text-muted text-xs font-bold uppercase tracking-wider border-b border-border-faint">
                 {t.history.action}
               </th>
             </tr>

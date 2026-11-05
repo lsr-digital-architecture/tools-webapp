@@ -1,7 +1,7 @@
-import React from "react";
-import type { ShortLink } from "@/domain/entities/short-link.entity";
-import { Badge } from "@/presentation/components/atoms/Badge";
-import { Button } from "@/presentation/components/atoms/Button";
+import React from 'react';
+import type { ShortLink } from '@/domain/entities/short-link.entity';
+import { Badge } from '@/presentation/components/atoms/Badge';
+import { Button } from '@/presentation/components/atoms/Button';
 
 interface HistoryRowProps {
   link: ShortLink;
@@ -51,7 +51,7 @@ export const HistoryRow: React.FC<HistoryRowProps> = ({
       </td>
       <td className="p-4 border-b border-white/5 align-middle text-[0.95rem]">
         {link.expiresAt.value ? (
-          <Badge status={isExpired ? "expired" : "active"}>
+          <Badge status={isExpired ? 'expired' : 'active'}>
             {isExpired
               ? texts.expired
               : `${texts.expPrefix} ${new Date(link.expiresAt.value).toLocaleString()}`}

@@ -1,5 +1,4 @@
-import type { InputHTMLAttributes } from "react";
-import React from "react";
+import React, { type InputHTMLAttributes } from 'react';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 

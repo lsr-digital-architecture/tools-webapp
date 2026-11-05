@@ -13,5 +13,5 @@ logs:
 	docker compose logs -f
 
 test:
-	docker compose run --rm backend npm test
-	docker compose run --rm frontend npm test
+	docker compose run --rm backend pnpm test
+	docker compose run --rm frontend pnpm test

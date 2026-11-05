@@ -1,0 +1,16 @@
+{
+  "name": "tools-webapp",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Volta Link — Clean Architecture URL shortener monorepo",
+  "packageManager": "pnpm@12.8.1",
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "lint": "pnpm -r run lint",
+    "format": "pnpm -r run format",
+    "format:check": "pnpm -r run format:check",
+    "test": "pnpm -r run test"
+  }
+}

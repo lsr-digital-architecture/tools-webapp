@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "@/presentation/components/atoms/Button";
+import React from 'react';
+import { Button } from '@/presentation/components/atoms/Button';
 
 interface ResultCardProps {
   label: string;

@@ -1,7 +1,7 @@
-import React from "react";
-import type { ShortLink } from "@/domain/entities/short-link.entity";
-import { useTranslation } from "@/presentation/i18n/LanguageContext";
-import { HistoryRow } from "@/presentation/components/molecules/HistoryRow";
+import React from 'react';
+import type { ShortLink } from '@/domain/entities/short-link.entity';
+import { useTranslation } from '@/presentation/i18n/LanguageContext';
+import { HistoryRow } from '@/presentation/components/molecules/HistoryRow';
 
 interface HistoryListProps {
   history: readonly ShortLink[];

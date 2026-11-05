@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Outfit", system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
 
   --color-main-bg: #09090b;
   --color-card-bg: rgba(20, 20, 25, 0.6);

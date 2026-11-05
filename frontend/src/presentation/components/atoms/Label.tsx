@@ -1,5 +1,4 @@
-import type { LabelHTMLAttributes } from "react";
-import React from "react";
+import React, { type LabelHTMLAttributes } from 'react';
 
 type LabelProps = LabelHTMLAttributes<HTMLLabelElement>;
 

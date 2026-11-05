@@ -16,16 +16,16 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "types": ["node"],
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
 }

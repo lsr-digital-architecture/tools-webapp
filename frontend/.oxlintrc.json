@@ -1,36 +1,66 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "react", "typescript", "unicorn", "oxc", "import", "jsx-a11y", "promise"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
-    "pedantic": "error",
-    "perf": "error",
-    "style": "error"
+    "pedantic": "warn",
+    "perf": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "19.0.0"
+    }
   },
   "rules": {
-    "eslint/no-console": "warn",
-    "typescript/no-explicit-any": "error",
-    "typescript/no-non-null-assertion": "error",
-    "eslint/sort-imports": "off",
-    "eslint/sort-keys": "off",
-    "eslint/no-magic-numbers": "off",
-    "unicorn/no-null": "off",
-    "typescript/parameter-properties": "off",
-    "eslint/init-declarations": "off",
-    "eslint/max-params": "off",
-    "eslint/require-unicode-regexp": "off",
-    "unicorn/filename-case": "off",
-    "eslint/require-await": "off",
-    "eslint/func-style": "off",
-    "typescript/method-signature-style": "off",
-    "eslint/max-lines-per-function": "off",
-    "eslint/no-shadow": "off",
-    "eslint/no-ternary": "off",
-    "eslint/id-length": "off",
-    "unicorn/prefer-global-this": "off",
-    "eslint/no-duplicate-imports": "off",
-    "typescript/no-inferrable-types": "off",
-    "eslint/max-statements": "off",
-    "eslint/no-console": "off"
-  }
+    "eqeqeq": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "no-debugger": "error",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-duplicate-imports": "error",
+    "no-self-compare": "error",
+    "no-template-curly-in-string": "error",
+    "react/rules-of-hooks": "error",
+    "react/jsx-key": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "react/jsx-no-target-blank": "error",
+    "react/no-danger": "warn",
+    "react/react-in-jsx-scope": "off",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-non-null-assertion": "warn",
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/anchor-is-valid": "error",
+    "jsx-a11y/aria-props": "error",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/role-has-required-aria-props": "error",
+    "jsx-a11y/heading-has-content": "error",
+    "jsx-a11y/html-has-lang": "error",
+    "jsx-a11y/no-distracting-elements": "error",
+    "jsx-a11y/scope": "error",
+    "jsx-a11y/prefer-tag-over-role": "off",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "import/no-duplicates": "error",
+    "import/no-unassigned-import": ["error", { "allow": ["**/*.css", "**/*.scss", "**/*.sass"] }],
+    "import/no-named-as-default": "off",
+    "unicorn/prefer-node-protocol": "error",
+    "react/set-state-in-effect": "off",
+    "react/jsx-no-constructed-context-values": "off",
+    "promise/always-return": "off",
+    "no-shadow": "off",
+    "max-lines": ["warn", { "max": 250, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": "off",
+    "require-await": "off",
+    "require-unicode-regexp": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/constants/**"],
+      "rules": {
+        "max-lines": "off"
+      }
+    }
+  ]
 }

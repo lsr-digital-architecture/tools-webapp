@@ -1,5 +1,5 @@
-import React from "react";
-import { Header } from "@/presentation/components/organisms/Header";
+import React from 'react';
+import { Header } from '@/presentation/components/organisms/Header';
 
 interface MainLayoutProps {
   children: React.ReactNode;

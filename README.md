@@ -2,105 +2,115 @@
 
 Volta Link is a modern, full-stack URL shortener built with **Clean Architecture**, **Domain-Driven Design (DDD)**, and **Atomic Design**. It strictly adheres to functional programming principles, ensuring absolute immutability and zero nested conditionals across the entire codebase.
 
-## 🏗️ Architecture & Paradigms
+## Architecture & Paradigms
 
-The project strictly follows architectural best practices, ensuring that the core business logic is isolated from external frameworks, databases, and UI components. 
+The project strictly follows architectural best practices, ensuring that the core business logic is isolated from external frameworks, databases, and UI components.
 
 1. **Domain Layer**: Contains Entities (`ShortLink`) and Value Objects (`OriginalUrl`, `UrlCode`, `ExpirationDate`) to guarantee valid states.
 2. **Application Layer**: Contains Use Cases (`ShortenUrlUseCase`, `GetOriginalUrlUseCase`, `GetHistoryUseCase`).
-3. **Presentation Layer**: 
+3. **Presentation Layer**:
    - *Backend*: Pure JSON REST API Express Controllers (No SSR HTML).
    - *Frontend*: React Components structured using **Atomic Design** (Atoms, Molecules, Organisms, Templates, Pages).
 4. **Infrastructure Layer**: Prisma/SQLite Adapters (Backend) / HTTP Fetch & LocalStorage Adapters (Frontend).
 5. **Strict Functional Programming**: Zero mutability (no `let` variables, pure functions only) and flat logic (no nested `if` statements).
 
-## 🚀 Tech Stack
+## Tech Stack
 
-- **Frontend**: React, TypeScript, **Vite v6**, **TailwindCSS v4** (Zero-config, premium Glassmorphism design)
-- **Backend**: Node.js **v24 LTS**, Express, TypeScript, **Prisma v7** (ORM with `@prisma/adapter-better-sqlite3`), SQLite
-- **Code Quality**: **oxlint** (strict linting), **oxfmt** (formatting), absolute imports (`@/`) via `tsc-alias` & Vite native resolution
-- **Testing**: **Vitest v4**, `@golevelup/ts-vitest` (advanced mocking), SQLite in-memory integration testing
+- **Monorepo**: pnpm workspace (`frontend` + `backend`), `pnpm@12.8.1`
+- **Frontend**: React 19, TypeScript 6, Vite 8, TailwindCSS v4
+- **Backend**: Node.js v24 LTS, Express, TypeScript 6, Prisma v7 (`@prisma/adapter-better-sqlite3`), SQLite
+- **Code Quality**: oxlint, oxfmt, absolute imports (`@/`) via `tsc-alias` & Vite native resolution
+- **Testing**: Vitest v4, `@golevelup/ts-vitest`, SQLite in-memory integration testing
 - **Security**: Shared API Key authentication (`x-api-key`) between Frontend Gateway and Backend Middleware
-- **DevOps**: Docker, Docker Compose, Makefile, deterministic builds (`npm ci`)
+- **DevOps**: Docker, Docker Compose, Makefile, deterministic builds (`pnpm install --frozen-lockfile`)
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js (v24 LTS)
-- Docker & Docker Compose (optional, but recommended for easy startup)
+
+- Node.js (v24 LTS recommended; CI uses Node 22)
+- pnpm 12.8.1 (via Corepack: `corepack enable`)
+- Docker & Docker Compose (optional, recommended for easy startup)
 
 ### Quick Start (Using Docker)
-
-The easiest way to run the entire stack is using the provided Makefile:
 
 ```bash
 make start
 ```
 
-This will build and start the Docker containers:
-- **Frontend** available at: `http://localhost:5173`
-- **Backend API** available at: `http://localhost:3001`
+This builds and starts the Docker containers:
 
-To stop the containers:
+- **Frontend**: `http://localhost:5173`
+- **Backend API**: `http://localhost:3001`
+
 ```bash
 make stop
 ```
 
 ### Manual Setup (Without Docker)
 
-If you prefer to run it locally without Docker:
+From the repository root:
 
-**1. Backend:**
 ```bash
-cd backend
-npm install
-npx prisma db push
-npm run dev
+pnpm install
 ```
 
-**2. Frontend:**
+**Backend:**
+
+```bash
+cd backend
+pnpm exec prisma db push
+pnpm dev
+```
+
+**Frontend** (another terminal):
+
 ```bash
 cd frontend
-npm install
-npm run dev
+pnpm dev
 ```
 
-## 🧪 Testing
-
-Both backend and frontend contain rigorous automated tests powered by **Vitest** and `@golevelup/ts-vitest` to ensure business rules are strictly enforced via deep mocks.
-
-**Run Backend Unit Tests:**
-```bash
-cd backend
-npm test
-```
-
-**Run Backend Integration Tests (Prisma + SQLite on-the-fly):**
-```bash
-cd backend
-npm run test:integration
-```
-
-**Run Frontend Tests:**
-```bash
-cd frontend
-npm test
-```
-
-## 🧹 Linting & Formatting
-
-The codebase uses **oxlint** and **oxfmt** with strict configurations to maintain clean code standards.
+Or run both from the root:
 
 ```bash
-# In either backend/ or frontend/ directory
-npm run lint
-npm run format
+pnpm dev
 ```
 
-## 🎯 Features
+## Scripts (root)
+
+| Script | Description |
+|--------|-------------|
+| `pnpm dev` | Start FE + BE in parallel |
+| `pnpm build` | Build all packages |
+| `pnpm typecheck` | TypeScript check (FE + BE) |
+| `pnpm lint` | oxlint (FE + BE) |
+| `pnpm format` | Format with oxfmt |
+| `pnpm format:check` | Check formatting |
+| `pnpm test` | Run unit tests (FE + BE) |
+
+## Testing
+
+```bash
+# All unit tests from root
+pnpm test
+
+# Backend integration tests (Prisma + SQLite)
+cd backend && pnpm test:integration
+```
+
+## Linting & Formatting
+
+```bash
+pnpm lint
+pnpm format:check
+pnpm format
+```
+
+## Features
+
 - **URL Shortening**: Shorten URLs with optional custom aliases.
 - **Expirations**: Set optional expiration dates for short links.
-- **i18n (Internationalization)**: Full English (EN) and French (FR) support with system-preference detection and manual toggle.
+- **i18n**: Full English (EN) and French (FR) support with system-preference detection and manual toggle.
 - **Security**: Backend API is protected by a secret API Key.
-- **Local History**: Local history of recently shortened links (stored in LocalStorage).
-- **Premium UI**: Responsive, high-end "Glassmorphism" UI built with TailwindCSS v4.
+- **Local History**: Recently shortened links stored in LocalStorage.
+- **Premium UI**: Responsive glassmorphism UI built with TailwindCSS v4.

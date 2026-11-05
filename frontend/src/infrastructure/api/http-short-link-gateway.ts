@@ -1,10 +1,10 @@
 import type {
   ShortLinkGateway,
   ShortenLinkParams,
-} from "@/domain/gateways/short-link-gateway.interface";
-import { ShortLink } from "@/domain/entities/short-link.entity";
-import { OriginalUrl } from "@/domain/value-objects/original-url.vo";
-import { ExpirationDate } from "@/domain/value-objects/expiration-date.vo";
+} from '@/domain/gateways/short-link-gateway.interface';
+import { ShortLink } from '@/domain/entities/short-link.entity';
+import { OriginalUrl } from '@/domain/value-objects/original-url.vo';
+import { ExpirationDate } from '@/domain/value-objects/expiration-date.vo';
 
 export class HttpShortLinkGateway implements ShortLinkGateway {
   constructor(private readonly baseUrl: string) {}
@@ -13,16 +13,16 @@ export class HttpShortLinkGateway implements ShortLinkGateway {
     const response = await fetch(`${this.baseUrl}/api/shorten`, {
       body: JSON.stringify(params),
       headers: {
-        "Content-Type": "application/json",
-        "x-api-key": import.meta.env.VITE_API_KEY,
+        'Content-Type': 'application/json',
+        'x-api-key': import.meta.env.VITE_API_KEY,
       },
-      method: "POST",
+      method: 'POST',
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "DEFAULT_GATEWAY_ERROR");
+      throw new Error(data.error || 'DEFAULT_GATEWAY_ERROR');
     }
 
     // Map network response DTO to Domain Entity

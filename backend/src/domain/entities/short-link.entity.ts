@@ -1,6 +1,6 @@
-import type { OriginalUrl } from "@/domain/value-objects/original-url.vo";
-import type { UrlCode } from "@/domain/value-objects/url-code.vo";
-import type { ExpirationDate } from "@/domain/value-objects/expiration-date.vo";
+import type { OriginalUrl } from '@/domain/value-objects/original-url.vo';
+import type { UrlCode } from '@/domain/value-objects/url-code.vo';
+import type { ExpirationDate } from '@/domain/value-objects/expiration-date.vo';
 
 export class ShortLink {
   public readonly id: string;
@@ -14,7 +14,7 @@ export class ShortLink {
     originalUrl: OriginalUrl,
     code: UrlCode,
     createdAt: Date,
-    expiresAt: ExpirationDate,
+    expiresAt: ExpirationDate
   ) {
     this.id = id;
     this.originalUrl = originalUrl;
@@ -36,7 +36,7 @@ export class ShortLink {
       properties.originalUrl,
       properties.code,
       properties.createdAt || new Date(),
-      properties.expiresAt,
+      properties.expiresAt
     );
   }
 

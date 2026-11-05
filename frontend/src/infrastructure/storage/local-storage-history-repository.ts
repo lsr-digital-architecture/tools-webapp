@@ -1,10 +1,10 @@
-import type { HistoryRepository } from "@/domain/gateways/history-repository.interface";
-import { ShortLink } from "@/domain/entities/short-link.entity";
-import { OriginalUrl } from "@/domain/value-objects/original-url.vo";
-import { ExpirationDate } from "@/domain/value-objects/expiration-date.vo";
+import type { HistoryRepository } from '@/domain/gateways/history-repository.interface';
+import { ShortLink } from '@/domain/entities/short-link.entity';
+import { OriginalUrl } from '@/domain/value-objects/original-url.vo';
+import { ExpirationDate } from '@/domain/value-objects/expiration-date.vo';
 
 export class LocalStorageHistoryRepository implements HistoryRepository {
-  private readonly STORAGE_KEY = "volta_shorten_history";
+  private readonly STORAGE_KEY = 'volta_shorten_history';
 
   public async save(link: ShortLink): Promise<void> {
     const list = await this.getAll();
@@ -30,10 +30,14 @@ export class LocalStorageHistoryRepository implements HistoryRepository {
 
     try {
       const parsed = JSON.parse(stored);
-      if (!Array.isArray(parsed)) {return [];}
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
 
       return parsed.map((item) => {
-        if (!item || typeof item !== "object") {throw new Error("Invalid format");}
+        if (!item || typeof item !== 'object') {
+          throw new Error('Invalid format');
+        }
         return ShortLink.create({
           code: String(item.code),
           createdAt: new Date(String(item.createdAt)),
@@ -43,7 +47,7 @@ export class LocalStorageHistoryRepository implements HistoryRepository {
         });
       });
     } catch (error) {
-      console.error("Failed to parse history from local storage:", error);
+      console.error('Failed to parse history from local storage:', error);
       return [];
     }
   }

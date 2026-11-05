@@ -1,18 +1,21 @@
 {
   "name": "url-shortener-backend",
+  "private": true,
   "version": "1.0.0",
   "description": "Clean Architecture & DDD URL Shortener Backend",
   "main": "dist/index.js",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only src/index.ts",
     "build": "prisma generate && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run --passWithNoTests",
     "test:integration": "vitest run -c vitest.integration.config.ts",
     "lint": "oxlint -c .oxlintrc.json",
     "lint:fix": "oxlint -c .oxlintrc.json --fix",
-    "format": "oxfmt --check src",
-    "format:fix": "oxfmt src"
+    "format": "oxfmt src",
+    "format:check": "oxfmt --check src"
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.8.0",
@@ -29,17 +32,14 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.10",
-    "oxfmt": "^0.53.0",
-    "oxlint": "^0.15.11",
+    "oxfmt": "^0.72.0",
+    "oxlint": "^1.81.0",
     "prisma": "^7.8.0",
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.17",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.8.2",
+    "typescript": "~6.0.2",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.1.8"
-  },
-  "overrides": {
-    "@hono/node-server": "^1.19.13"
   }
 }

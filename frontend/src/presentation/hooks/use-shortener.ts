@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import type { ShortLink } from "@/domain/entities/short-link.entity";
-import type { ShortenUrlUseCase } from "@/application/use-cases/shorten-url.use-case";
-import type { GetHistoryUseCase } from "@/application/use-cases/get-history.use-case";
+import { useEffect, useState } from 'react';
+import type { ShortLink } from '@/domain/entities/short-link.entity';
+import type { ShortenUrlUseCase } from '@/application/use-cases/shorten-url.use-case';
+import type { GetHistoryUseCase } from '@/application/use-cases/get-history.use-case';
 
 export function useShortener(
   shortenUrlUseCase: ShortenUrlUseCase,
-  getHistoryUseCase: GetHistoryUseCase,
+  getHistoryUseCase: GetHistoryUseCase
 ) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export function useShortener(
           setHistory(data);
         }
       })
-      .catch((error) => console.error("Failed to load history:", error));
+      .catch((error) => console.error('Failed to load history:', error));
 
     return () => {
       controller.abort();
@@ -46,7 +46,7 @@ export function useShortener(
       const updatedHistory = await getHistoryUseCase.execute();
       setHistory(updatedHistory);
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An unexpected error occurred.");
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
     } finally {
       setLoading(false);
     }

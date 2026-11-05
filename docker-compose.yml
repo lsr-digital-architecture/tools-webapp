@@ -3,35 +3,37 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "3001:3001"
     volumes:
-      - ./backend:/app
+      - ./backend:/app/backend
       # prevent host node_modules from overriding container node_modules
       - /app/node_modules
+      - /app/backend/node_modules
     environment:
       - PORT=3001
       - DATABASE_URL=file:./dev.db
       - API_KEY=super-secret-volta-key-2026
     # Run Prisma migrations first, then start development server
     command: >
-      sh -c "npx prisma generate && npx prisma db push && npm run dev"
+      sh -c "pnpm exec prisma generate && pnpm exec prisma db push && pnpm run dev"
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
+      - ./frontend:/app/frontend
       - /app/node_modules
+      - /app/frontend/node_modules
     environment:
       - VITE_API_URL=http://localhost:3001
       - VITE_API_KEY=super-secret-volta-key-2026
     depends_on:
       - backend
     # Make sure Vite binds to 0.0.0.0 so we can access it from host
-    command: npm run dev -- --host 0.0.0.0
+    command: pnpm run dev -- --host 0.0.0.0

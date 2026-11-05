@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "@/App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { App } from '@/App';
 
-import { LanguageProvider } from "@/presentation/i18n/LanguageContext";
+import { LanguageProvider } from '@/presentation/i18n/LanguageContext';
 
-const rootElement = document.querySelector("#root");
+const rootElement = document.querySelector('#root');
 if (!rootElement) {
-  throw new Error("Failed to find the root element");
+  throw new Error('Failed to find the root element');
 }
 
 ReactDOM.createRoot(rootElement).render(
@@ -14,5 +14,5 @@ ReactDOM.createRoot(rootElement).render(
     <LanguageProvider>
       <App />
     </LanguageProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

@@ -1,4 +1,13 @@
 node_modules
 dist
 .env
-dev.db
+.env.*
+*.db
+*.db-journal
+*.sqlite
+coverage
+tests
+**/*.spec.ts
+vitest.config.ts
+vitest.integration.config.ts
+.oxlintrc.json

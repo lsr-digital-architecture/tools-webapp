@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "lsr-digital-architecture"
+  },
+  "targets": {
+    "lsr-digital-architecture": {
+      "hosting": {
+        "tools": [
+          "tools"
+        ]
+      }
+    }
+  }
+}

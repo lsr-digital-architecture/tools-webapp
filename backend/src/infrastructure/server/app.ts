@@ -1,5 +1,5 @@
 import express, { type Express } from 'express';
-import cors from 'cors';
+import cors, { type CorsOptions } from 'cors';
 import type { PrismaClient } from '@prisma/client';
 import { PrismaShortLinkRepository } from '@/infrastructure/database/prisma-short-link.repository';
 import { CryptoCodeGenerator } from '@/infrastructure/services/crypto-code-generator.service';
@@ -9,11 +9,22 @@ import { ShortenUrlController } from '@/presentation/controllers/shorten-url.con
 import { RedirectUrlController } from '@/presentation/controllers/redirect-url.controller';
 import { createShortLinkRouter } from '@/presentation/routes/short-link.routes';
 
+function resolveCorsOrigin(): CorsOptions['origin'] {
+  const raw = process.env.CORS_ORIGINS?.trim();
+  if (!raw || raw === '*') {
+    return true;
+  }
+  const allowed = raw
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  return allowed.length === 0 ? true : allowed;
+}
+
 export function createExpressApp(prisma: PrismaClient): Express {
   const app = express();
 
-  // Enable CORS for frontend client
-  app.use(cors());
+  app.use(cors({ origin: resolveCorsOrigin() }));
   app.use(express.json());
 
   // Wire up dependencies (Clean Architecture Dependency Injection)

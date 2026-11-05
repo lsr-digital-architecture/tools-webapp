@@ -114,3 +114,64 @@ pnpm format
 - **Security**: Backend API is protected by a secret API Key.
 - **Local History**: Recently shortened links stored in LocalStorage.
 - **Premium UI**: Responsive glassmorphism UI built with TailwindCSS v4.
+
+## Déploiement
+
+Apex : **`loghan-ramassamy.fr`** (même projet GCP/Firebase que marketing : `lsr-digital-architecture`).
+
+| Subdomain | Cible | Service |
+|-----------|-------|---------|
+| `tools.loghan-ramassamy.fr` | Firebase Hosting site `tools` | frontend |
+| `api.loghan-ramassamy.fr` | Cloud Run `tools-api` (`europe-west1`) | backend |
+
+WIF / SA (partagés avec marketing) :
+
+- Provider : `projects/344658308078/locations/global/workloadIdentityPools/github-pool/providers/github-provider`
+- SA : `github-deployer@lsr-digital-architecture.iam.gserviceaccount.com`
+
+### Frontend → Firebase Hosting
+
+Workflow : `.github/workflows/deploy-frontend.yml`
+
+- PR → preview channel sur le site `tools`
+- Push `main` → live `hosting:tools`
+- Build injecte `VITE_API_URL` (défaut CI : `https://api.loghan-ramassamy.fr`) et `VITE_API_KEY`
+
+### Backend → Cloud Run
+
+Workflow : `.github/workflows/deploy-backend.yml`
+
+- PR (chemins `backend/**`) → quality + build image (pas de deploy)
+- Push `main` / `workflow_dispatch` → build/push Artifact Registry puis `gcloud run deploy tools-api`
+- Image : `europe-west1-docker.pkg.dev/lsr-digital-architecture/cloud-run/tools-api`
+- Dockerfile prod : `backend/Dockerfile` (écoute `0.0.0.0:$PORT`, Prisma generate + `db push` au boot)
+- Dev Compose : `backend/Dockerfile.dev`
+
+**Note SQLite :** le disque Cloud Run est éphémère. `DATABASE_URL=file:/tmp/tools.db` convient pour un POC ; pour de la persistance, brancher Cloud SQL / un volume et adapter Prisma.
+
+### GitHub Secrets & Variables
+
+| Name | Type | Used by | Description |
+|------|------|---------|-------------|
+| `VITE_API_KEY` | Secret | frontend CI | Même valeur que `API_KEY` backend (header `x-api-key`) |
+| `DATABASE_URL` | Secret | Cloud Run deploy | Ex. `file:/tmp/tools.db` |
+| `API_KEY` | Secret | Cloud Run deploy | Clé API runtime |
+| `VITE_API_URL` | Variable (opt.) | frontend CI | Défaut : `https://api.loghan-ramassamy.fr` |
+| `CORS_ORIGINS` | Variable (opt.) | Cloud Run | Défaut : `https://tools.loghan-ramassamy.fr` |
+
+Auth GCP : WIF (pas de clé JSON).
+
+### Ops checklist (console / CLI)
+
+1. **Firebase sites** : `firebase hosting:sites:create tools --project lsr-digital-architecture`
+2. **Domaine Hosting** : attacher `tools.loghan-ramassamy.fr` au site `tools`
+3. **Artifact Registry** : créer le repo Docker `cloud-run` en `europe-west1` si absent
+4. **IAM SA `github-deployer`** : roles Hosting Admin / Firebase, Artifact Registry Writer, Cloud Run Admin, Service Account User ; autoriser ce repo sur le WIF provider
+5. **Cloud Run custom domain `api`** :
+   - Console Cloud Run → Domain mappings → map `api.loghan-ramassamy.fr` → service `tools-api` (`europe-west1`)
+   - Ou : `gcloud beta run domain-mappings create --service tools-api --domain api.loghan-ramassamy.fr --region europe-west1`
+   - Ajouter chez le registrar les records DNS indiqués (souvent CNAME / A/AAAA Google)
+6. Renseigner les secrets/variables GitHub ci-dessus
+7. Premier deploy : push `main` (ou `workflow_dispatch` sur deploy-backend)
+
+Env local : copier `frontend/.env.example` et `backend/.env.example`.

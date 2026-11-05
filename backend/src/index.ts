@@ -10,7 +10,7 @@ dotenv.config();
 const dbUrl = process.env.DATABASE_URL || 'file:./dev.db';
 const adapter = new PrismaBetterSqlite3({ url: dbUrl });
 const prisma = new PrismaClient({ adapter });
-const port = process.env.PORT || 3001;
+const port = Number(process.env.PORT || 3001);
 
 async function bootstrap() {
   try {
@@ -20,8 +20,8 @@ async function bootstrap() {
 
     const app = createExpressApp(prisma);
 
-    app.listen(port, () => {
-      console.log(`[Server] URL Shortener backend running on http://localhost:${port}`);
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`[Server] URL Shortener backend listening on 0.0.0.0:${port}`);
     });
   } catch (error) {
     console.error('[Server] Fatal bootstrapping error:', error);

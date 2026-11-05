@@ -1,0 +1,132 @@
+name: Deploy backend (Cloud Run)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '.github/workflows/deploy-backend.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'package.json'
+      - '.github/workflows/deploy-backend.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-backend-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GCP_PROJECT_ID: lsr-digital-architecture
+  GCP_REGION: europe-west1
+  AR_REPOSITORY: cloud-run
+  SERVICE_NAME: tools-api
+  IMAGE_NAME: tools-api
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.8.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Backend quality gate
+        run: pnpm --filter url-shortener-backend check:all
+
+      - name: Backend unit tests
+        run: pnpm --filter url-shortener-backend test
+
+      - name: Backend build
+        run: pnpm --filter url-shortener-backend build
+
+  deploy:
+    needs: quality
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud via Workload Identity Federation
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: 'projects/344658308078/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
+          service_account: 'github-deployer@lsr-digital-architecture.iam.gserviceaccount.com'
+          token_format: access_token
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build and push image
+        env:
+          IMAGE: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.AR_REPOSITORY }}/${{ env.IMAGE_NAME }}
+        run: |
+          docker build -f backend/Dockerfile -t "${IMAGE}:${GITHUB_SHA}" -t "${IMAGE}:latest" .
+          docker push "${IMAGE}:${GITHUB_SHA}"
+          docker push "${IMAGE}:latest"
+
+      - name: Deploy to Cloud Run
+        env:
+          IMAGE: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.AR_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          CORS_ORIGINS: ${{ vars.CORS_ORIGINS }}
+        run: |
+          if [ -z "${DATABASE_URL}" ] || [ -z "${API_KEY}" ]; then
+            echo "Missing required secrets: DATABASE_URL and/or API_KEY" >&2
+            exit 1
+          fi
+          CORS_VALUE="${CORS_ORIGINS:-https://tools.loghan-ramassamy.fr}"
+          ENV_FILE="$(mktemp)"
+          trap 'rm -f "${ENV_FILE}"' EXIT
+          {
+            echo "NODE_ENV: production"
+            echo "DATABASE_URL: \"${DATABASE_URL}\""
+            echo "API_KEY: \"${API_KEY}\""
+            echo "CORS_ORIGINS: \"${CORS_VALUE}\""
+          } > "${ENV_FILE}"
+          gcloud run deploy "${SERVICE_NAME}" \
+            --image "${IMAGE}" \
+            --region "${GCP_REGION}" \
+            --platform managed \
+            --allow-unauthenticated \
+            --port 8080 \
+            --memory 512Mi \
+            --cpu 1 \
+            --min-instances 0 \
+            --max-instances 3 \
+            --env-vars-file "${ENV_FILE}"

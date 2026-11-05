@@ -3,7 +3,7 @@ import { LanguageContext } from '@/presentation/i18n/languageContextInstance';
 import { translations, type Language } from '@/presentation/i18n/translations';
 
 const getInitialLanguage = (): Language => {
-  const rawLang = localStorage.getItem('volta-lang');
+  const rawLang = localStorage.getItem('lsr-tools-lang');
   const savedLang = rawLang === 'en' || rawLang === 'fr' ? rawLang : undefined;
 
   if (savedLang) {
@@ -27,7 +27,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('volta-lang', lang);
+    localStorage.setItem('lsr-tools-lang', lang);
   };
 
   const t = translations[language];

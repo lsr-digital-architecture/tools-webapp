@@ -6,7 +6,7 @@ export const translations = {
       defaultGatewayError: 'An error occurred while communicating with the server.',
     },
     form: {
-      copied: 'Copied! ✅',
+      copied: 'Copied!',
       copy: 'Copy',
       customCodeLabel: 'Custom Code (Optional)',
       customCodePlaceholder: 'Ex: my-code',
@@ -18,8 +18,11 @@ export const translations = {
       urlPlaceholder: 'https://example.com/a/very/long/link/to/shorten',
     },
     header: {
-      subtitle: 'Shorten your links instantly with enhanced security',
-      title: '⚡ VOLTA LINK',
+      brand: 'LSR',
+      brandSuffix: 'Tools',
+      eyebrow: 'LSR Digital Architecture',
+      subtitle: 'Secure URL shortener for finance & fintech workflows',
+      title: 'LSR Tools',
     },
     history: {
       action: 'Action',
@@ -32,7 +35,11 @@ export const translations = {
       never: 'Never',
       originalUrl: 'Original URL',
       shortCode: 'Short Code',
-      title: '📋 Recent Links',
+      title: 'Recent Links',
+    },
+    nav: {
+      cv: 'CV',
+      marketing: 'Website',
     },
     toast: {
       success: 'Link copied successfully!',
@@ -43,7 +50,7 @@ export const translations = {
       defaultGatewayError: 'Une erreur est survenue lors de la communication avec le serveur.',
     },
     form: {
-      copied: 'Copié ! ✅',
+      copied: 'Copié !',
       copy: 'Copier',
       customCodeLabel: 'Code Personnalisé (Optionnel)',
       customCodePlaceholder: 'Ex: mon-code',
@@ -55,8 +62,11 @@ export const translations = {
       urlPlaceholder: 'https://example.com/un/lien/tres/long/a/reduire',
     },
     header: {
-      subtitle: 'Raccourcissez vos liens instantanément avec une sécurité renforcée',
-      title: '⚡ VOLTA LINK',
+      brand: 'LSR',
+      brandSuffix: 'Tools',
+      eyebrow: 'LSR Digital Architecture',
+      subtitle: 'Raccourcisseur d’URL sécurisé pour workflows finance & fintech',
+      title: 'LSR Tools',
     },
     history: {
       action: 'Action',
@@ -69,7 +79,11 @@ export const translations = {
       never: 'Jamais',
       originalUrl: 'URL Originale',
       shortCode: 'Code Court',
-      title: '📋 Liens Récents',
+      title: 'Liens Récents',
+    },
+    nav: {
+      cv: 'CV',
+      marketing: 'Site vitrine',
     },
     toast: {
       success: 'Lien copié avec succès !',

@@ -2,7 +2,7 @@
   "name": "url-shortener-backend",
   "private": true,
   "version": "1.0.0",
-  "description": "Clean Architecture & DDD URL Shortener Backend",
+  "description": "LSR Tools — Clean Architecture & DDD URL Shortener Backend",
   "main": "dist/index.js",
   "scripts": {
     "postinstall": "prisma generate",

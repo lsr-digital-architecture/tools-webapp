@@ -1,6 +1,6 @@
-# Volta Link ⚡
+# LSR Tools
 
-Volta Link is a modern, full-stack URL shortener built with **Clean Architecture**, **Domain-Driven Design (DDD)**, and **Atomic Design**. It strictly adheres to functional programming principles, ensuring absolute immutability and zero nested conditionals across the entire codebase.
+**LSR Tools** is the utility suite of [LSR Digital Architecture](https://lsr-digital-architecture.com/) — starting with a full-stack URL shortener built for finance & fintech workflows. Stacked with **Clean Architecture**, **Domain-Driven Design (DDD)**, and **Atomic Design**, it keeps business logic immutable and free of nested conditionals.
 
 ## Architecture & Paradigms
 
@@ -113,7 +113,7 @@ pnpm format
 - **i18n**: Full English (EN) and French (FR) support with system-preference detection and manual toggle.
 - **Security**: Backend API is protected by a secret API Key.
 - **Local History**: Recently shortened links stored in LocalStorage.
-- **Premium UI**: Responsive glassmorphism UI built with TailwindCSS v4.
+- **LSR UI**: Responsive glass UI aligned with the LSR Digital Architecture design system (TailwindCSS v4).
 
 ## Déploiement
 

@@ -33,8 +33,8 @@ export const HomePage: React.FC<HomePageProps> = ({ shortenUrlUseCase, getHistor
       <HistoryList history={history} copiedCode={copiedCode} onCopy={copyToClipboard} />
 
       {copiedCode && (
-        <div className="fixed bottom-6 right-6 bg-[#18181b] border border-card-hover text-text-main py-3 px-6 rounded-xl font-semibold shadow-[0_10px_25px_-5px_rgba(0,0,0,0.5)] flex items-center gap-2 animate-[toastIn_0.3s_cubic-bezier(0.16,1,0.3,1)_forwards] z-[100]">
-          <span>📋</span> {t.toast.success}
+        <div className="fixed bottom-6 right-6 bg-[#0D111A] border border-card-hover text-text-main py-3 px-6 rounded-[10px] font-semibold shadow-[0_10px_25px_-5px_rgba(0,0,0,0.5)] flex items-center gap-2 animate-[toastIn_0.3s_cubic-bezier(0.16,1,0.3,1)_forwards] z-[100]">
+          {t.toast.success}
         </div>
       )}
     </MainLayout>

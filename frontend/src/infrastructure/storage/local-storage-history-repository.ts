@@ -4,7 +4,7 @@ import { OriginalUrl } from '@/domain/value-objects/original-url.vo';
 import { ExpirationDate } from '@/domain/value-objects/expiration-date.vo';
 
 export class LocalStorageHistoryRepository implements HistoryRepository {
-  private readonly STORAGE_KEY = 'volta_shorten_history';
+  private readonly STORAGE_KEY = 'lsr_tools_shorten_history';
 
   public async save(link: ShortLink): Promise<void> {
     const list = await this.getAll();

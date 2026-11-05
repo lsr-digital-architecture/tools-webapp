@@ -20,7 +20,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
   copyText,
   copiedText,
 }) => (
-  <div className="mt-6 bg-brand/5 border border-dashed border-brand/30 rounded-2xl p-5 flex flex-col gap-3 animate-[slideIn_0.4s_ease-out]">
+  <div className="mt-6 bg-brand/5 border border-dashed border-accent/30 rounded-[10px] p-5 flex flex-col gap-3 animate-[slideIn_0.4s_ease-out]">
     <label className="text-[0.85rem] font-semibold text-text-dim uppercase tracking-[0.05em]">
       {label}
     </label>

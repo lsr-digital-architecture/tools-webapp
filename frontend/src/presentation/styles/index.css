@@ -2,21 +2,22 @@
 
 @theme {
   --font-sans: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --color-main-bg: #09090b;
-  --color-card-bg: rgba(20, 20, 25, 0.6);
-  --color-card-border: rgba(255, 255, 255, 0.06);
-  --color-card-hover: rgba(139, 92, 246, 0.3);
+  --color-main-bg: #090a0f;
+  --color-card-bg: rgba(13, 17, 26, 0.72);
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-card-hover: rgba(56, 189, 248, 0.35);
 
-  --color-brand: #8b5cf6;
-  --color-brand-hover: #7c3aed;
-  --color-brand-glow: rgba(139, 92, 246, 0.4);
+  --color-brand: #2563eb;
+  --color-brand-hover: #1d4ed8;
+  --color-brand-glow: rgba(37, 99, 235, 0.4);
 
-  --color-accent: #06b6d4;
+  --color-accent: #38bdf8;
 
-  --color-text-main: #f4f4f5;
-  --color-text-dim: #a1a1aa;
-  --color-text-muted: #52525b;
+  --color-text-main: #f8fafc;
+  --color-text-dim: #94a3b8;
+  --color-text-muted: #64748b;
 
   --color-success-text: #10b981;
   --color-success-bg: rgba(16, 185, 129, 0.1);
@@ -68,7 +69,10 @@
 
 body {
   @apply bg-main-bg text-text-main min-h-screen flex flex-col items-center justify-start overflow-x-hidden;
-  background-image: radial-gradient(circle at top center, #181024 0%, #09090b 80%);
+  background-image:
+    radial-gradient(circle at top center, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
+    linear-gradient(180deg, #090a0f 0%, #0d111a 100%);
   padding: 40px 20px;
 }
 
@@ -78,13 +82,13 @@ body {
 
 @layer components {
   .glass-panel {
-    @apply bg-card-bg backdrop-blur-[12px] border border-card-border rounded-[20px] p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] transition-all duration-300;
+    @apply bg-card-bg backdrop-blur-[12px] border border-card-border rounded-[10px] p-8 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] transition-all duration-300;
   }
   .glass-panel:hover {
-    @apply border-card-hover shadow-[0_12px_40px_0_rgba(139,92,246,0.08)];
+    @apply border-card-hover shadow-[0_12px_40px_0_rgba(56,189,248,0.08)];
   }
 
   .text-gradient {
-    @apply bg-gradient-to-br from-rose-500 via-fuchsia-500 to-brand bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-[#F8FAFC] via-[#38BDF8] to-brand bg-clip-text text-transparent;
   }
 }

@@ -2,7 +2,7 @@
   "name": "tools-webapp",
   "private": true,
   "version": "1.0.0",
-  "description": "Volta Link — Clean Architecture URL shortener monorepo",
+  "description": "LSR Tools — Clean Architecture URL shortener monorepo (LSR Digital Architecture)",
   "packageManager": "pnpm@12.8.1",
   "scripts": {
     "dev": "pnpm -r --parallel run dev",

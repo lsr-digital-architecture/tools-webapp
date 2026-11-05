@@ -57,8 +57,7 @@ export const Header: React.FC = () => {
         </a>
 
         <h1 className="text-[2.75rem] sm:text-[3rem] font-extrabold text-center tracking-tight text-gradient mb-2">
-          {t.header.brand}{' '}
-          <span className="font-light text-text-dim">{t.header.brandSuffix}</span>
+          {t.header.brand} <span className="font-light text-text-dim">{t.header.brandSuffix}</span>
         </h1>
         <p className="text-[1.05rem] text-text-dim text-center max-w-xl">{t.header.subtitle}</p>
       </div>
